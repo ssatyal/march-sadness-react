@@ -47,12 +47,18 @@ const previewArea = (items) => {
     <div className='row'>
       {items.map(item => {
         return (
-          <div className='col-md-4'>
-          <div style={{width: '250px', height:'250px', overflow: 'hidden'}}>
-            <img src={item.photo_url} style={{maxWidth:'100%', maxHeight:'100%', verticalAlign: 'middle'}}/>
+          // <div className='col-sm-4 text-center' style={{borderStyle: 'solid'}}>
+          <div className='col-sm-4 text-center' style={{
+            width: '250px',
+            height: '250px',
+            backgroundImage: `url(${item.photo_url})`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: '50%', 
+            borderStyle: 'solid'}}>
+            {/* <img src={item.photo_url} style={{width:'100%', height: 'auto', verticalAlign: 'middle'}}/> */}
           </div>
-            <div>{item.name}</div>
-          </div>
+          // </div>
         )
       })}
     </div>
