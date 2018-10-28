@@ -2,11 +2,13 @@ import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import seeds from './seeds.json'
 import {inject, observer} from 'mobx-react'
+import {toJS} from 'mobx'
 
 const App = inject('appStore')(
   observer(({appStore}) => (
   <Router>
     <div>
+    {console.log('appStore', toJS(appStore))}
       <ul>
         <li>
           <Link to="/">Home</Link>
@@ -28,9 +30,6 @@ const App = inject('appStore')(
       <Route path="/about" component={About} />
       <Route path="/topics" component={Topics} />
       <Route path="/previewArea" component={previewArea}/>
-      {/* <div>
-        {previewArea()}
-      </div> */}
     </div>
   </Router>
 )))

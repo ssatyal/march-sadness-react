@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker'
 import { BrowserRouter as Router, Route, Link  } from 'react-router-dom'
 import {Provider} from 'mobx-react'
 import appStore from './appStore'
+import seeds from './seeds.json'
 
 // let appStore = 
 
