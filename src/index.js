@@ -8,8 +8,6 @@ import {Provider} from 'mobx-react'
 import appStore from './appStore'
 import seeds from './seeds.json'
 
-// let appStore = 
-
 const Start = () => (
   <Provider appStore={appStore}>
     <Router>
