@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import seeds from './seeds.json'
 import {inject, observer} from 'mobx-react'
 import {toJS} from 'mobx'
+import PreviewImage from './PreviewImage'
 
 const App = inject('appStore')(
   observer(({appStore}) => (
@@ -46,32 +47,16 @@ const previewArea = (items) => {
   console.log('items', items)
   return (
     <div className='row'>
-      {items.map(item => {
+      {items.map((item, index) => {
         return (
-          // <div className='col-sm-4 text-center' style={{borderStyle: 'solid'}}>
-          <div className='col-sm-4 text-center' style={{
-            width: '250px',
-            height: '250px',
-            backgroundImage: `url(${item.photo_url})`,
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: '50%', 
-            borderStyle: 'solid'}}>
-            {/* <img src={item.photo_url} style={{width:'100%', height: 'auto', verticalAlign: 'middle'}}/> */}
-          </div>
-          // </div>
+          <PreviewImage
+            photo={item.photo_url}
+            index={index}
+          />
         )
       })}
     </div>
   )
-  // items.forEach(item => {
-  //   console.log('we got an item', item)
-  //   console.log('item.name', item.name)
-  //   return (
-      
-  //   )
-  // })
-  // return null
 }
 
 const About = () => (
