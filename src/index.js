@@ -4,12 +4,20 @@ import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import { BrowserRouter as Router, Route, Link  } from 'react-router-dom'
+import {Provider} from 'mobx-react'
+import appStore from './appStore'
 
-ReactDOM.render((
-  <Router>
-    <App />
-  </Router>
-), document.getElementById('root'))
+// let appStore = 
+
+const Start = () => (
+  <Provider appStore={appStore}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>
+)
+
+ReactDOM.render(<Start />, document.body)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

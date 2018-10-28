@@ -1,8 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import seeds from './seeds.json'
+import {inject, observer} from 'mobx-react'
 
-const App = () => (
+const App = inject('appStore')(
+  observer(({appStore}) => (
   <Router>
     <div>
       <ul>
@@ -31,7 +33,7 @@ const App = () => (
       </div> */}
     </div>
   </Router>
-);
+)))
 
 const Home = () => (
   <div>
