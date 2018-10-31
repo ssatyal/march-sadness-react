@@ -4,6 +4,7 @@ import seeds from './seeds.json'
 import {inject, observer} from 'mobx-react'
 import {toJS} from 'mobx'
 import PreviewImage from './PreviewImage'
+import LooksLike from './LooksLike'
 
 const App = inject('appStore')(
   observer(({appStore}) => (
@@ -21,7 +22,7 @@ const App = inject('appStore')(
           <Link to="/topics">Topics</Link>
         </li>
         <li>
-          <Link to="/previewArea">Preview</Link>
+          <Link to="/looksLikes">Preview</Link>
         </li>
       </ul>
 
@@ -30,7 +31,7 @@ const App = inject('appStore')(
       <Route exact path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/topics" component={Topics} />
-      <Route path="/previewArea" component={previewArea}/>
+      <Route path="/looksLikes" render={() => looksLikes({items: seeds['2017'], match})}/>
     </div>
   </Router>
 )))
@@ -38,23 +39,31 @@ const App = inject('appStore')(
 const Home = () => (
   <div>
     <h2>Home</h2>
-    {previewArea(seeds['2017'])}
+    {/* {looksLikes({items: seeds['2017']})} */}
   </div>
 );
 
-const previewArea = (items) => {
+const looksLikes = ({ items, match }) => {
   // const items = seeds['2017']
   console.log('items', items)
+  console.log('match', match)
   return (
     <div className='row'>
-      {items.map((item, index) => {
+      {items.map(( {item, index, match}) => {
         return (
+          <div>
+          <Link to={`${match.url}/:lookslikeId`}>
           <PreviewImage
             photo={item.photo_url}
             index={index}
+            looksLike={item.looks_like}
           />
+          </Link>
+          <Route path={`${match.path}/:looksLikeId`} render={() => <LooksLike />} />
+          </div>
         )
-      })}
+      })
+      }
     </div>
   )
 }
@@ -65,7 +74,9 @@ const About = () => (
   </div>
 );
 
-const Topics = ({ match }) => (
+const banana = 'boo'
+
+const Topics = ({ match, banana }) => (
   <div>
     <h2>Topics</h2>
     <ul>
@@ -89,7 +100,7 @@ const Topics = ({ match }) => (
   </div>
 );
 
-const Topic = ({ match }) => (
+const Topic = ({ match, banana }) => (
   <div>
     <h3>{match.params.topicId}</h3>
   </div>
