@@ -2,7 +2,7 @@ import { decorate, observable, action, computed } from 'mobx'
 import seeds from './seeds'
 
 const AppStore = observable.object({
-  data: seeds
+  data: seeds.blob
 })
 
 export default AppStore

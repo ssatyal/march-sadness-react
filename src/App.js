@@ -31,7 +31,7 @@ const App = inject('appStore')(
       <Route exact path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/topics" component={Topics} />
-      <Route path="/looksLikes" render={() => looksLikes({items: seeds['2017'], match})}/>
+      <Route path="/looksLikes" render={(props) => <LooksLikes items={appStore.data[2]} />} />
     </div>
   </Router>
 )))
@@ -43,23 +43,23 @@ const Home = () => (
   </div>
 );
 
-const looksLikes = ({ items, match }) => {
-  // const items = seeds['2017']
-  console.log('items', items)
-  console.log('match', match)
+const LooksLikes = ({ items }) => {
+  console.log('items', toJS(items))
+  // console.log('match', match)
   return (
     <div className='row'>
-      {items.map(( {item, index, match}) => {
+      {items.data.map(item => {
+        console.log('item', item)
         return (
           <div>
-          <Link to={`${match.url}/:lookslikeId`}>
+          <Link to={`looksLike/:${item.id}`}>
           <PreviewImage
             photo={item.photo_url}
-            index={index}
+            index={item.id}
             looksLike={item.looks_like}
           />
           </Link>
-          <Route path={`${match.path}/:looksLikeId`} render={() => <LooksLike />} />
+          <Route path={`looksLike/:${item.id}`} render={() => <LooksLike />} />
           </div>
         )
       })
