@@ -5,6 +5,7 @@ import {inject, observer} from 'mobx-react'
 import {toJS} from 'mobx'
 import PreviewImage from './PreviewImage'
 import LooksLike from './LooksLike'
+import appStore from './appStore'
 
 const App = inject('appStore')(
   observer(({appStore}) => (
@@ -22,7 +23,7 @@ const App = inject('appStore')(
           <Link to="/topics">Topics</Link>
         </li>
         <li>
-          <Link to="/looksLikes">Preview</Link>
+          <Link to="/looksLikes">looksLikes</Link>
         </li>
       </ul>
 
@@ -31,7 +32,9 @@ const App = inject('appStore')(
       <Route exact path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/topics" component={Topics} />
-      <Route path="/looksLikes" render={(props) => <LooksLikes items={appStore.data[2]} />} />
+      <Route path="/looksLikes" component={LooksLikes}
+      // render={(props) => <LooksLikes items={appStore.data[2]} />}
+      />
     </div>
   </Router>
 )))
@@ -43,27 +46,29 @@ const Home = () => (
   </div>
 );
 
-const LooksLikes = ({ items }) => {
-  console.log('items', toJS(items))
-  // console.log('match', match)
+const LooksLikes = ({ match }) => {
+  // console.log('items', toJS(items))
+  console.log('match', match)
+  const items = appStore.data[2]
+  console.log('items -', items)
   return (
     <div className='row'>
       {items.data.map(item => {
         console.log('item', item)
         return (
-          <div>
-          <Link to={`looksLike/:${item.id}`}>
+          <div key={item.id}>
+          <Link to={`${match.url}/${item.id}`}>
           <PreviewImage
             photo={item.photo_url}
             index={item.id}
             looksLike={item.looks_like}
           />
           </Link>
-          <Route path={`looksLike/:${item.id}`} render={() => <LooksLike />} />
           </div>
         )
       })
       }
+      <Route path={`${match.path}/:itemId`} component={LooksLike} />
     </div>
   )
 }

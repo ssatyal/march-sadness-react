@@ -16,8 +16,9 @@ class PreviewImage extends React.Component {
     let props = this.props
     return(
       <div className='col-sm-4 text-center'
-        onClick={() => <Route path='/lookslike' render={(props) => <LooksLike {...props}/>} />
-        }
+        // onClick={() => <Route path='/lookslike' render={(props) => <LooksLike {...props}/>} 
+        // />
+        // }
         style={{
           width: '250px',
           height: '250px',
